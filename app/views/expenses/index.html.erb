@@ -1,0 +1,33 @@
+<div class="container">   
+    <h3>Expense</h3>   
+     
+      <div>   
+        <%= link_to 'Add Expense', expenses_new_path %>   
+      </div>   
+      <br>   
+    <table border="2">   
+      <thead>   
+      <tr>   
+        <th>Name</th>   
+        <th>amount</th>   
+        <th>file_upload</th>   
+      </tr>   
+      </thead>   
+      <tbody>   
+      <% @expenses.each do |expense| %>   
+          <tr>   
+            <td><%= expense.name %></td>   
+            <td><%= expense.amount %></td>   
+            <td><%= expense.file_upload %></td>   
+               <div>   
+               <td>   
+                <%= link_to 'Show', expenses_show_path(expense) %>   
+                <%= link_to 'Edit', expenses_edit_path(expense) %>   
+                <%= link_to 'Delete', expenses_destroy_path(expense), method: :delete %>   
+              </div>   
+            </td>   
+          </tr>   
+      <% end %>   
+      </tbody>   
+    </table>   
+</div>  
