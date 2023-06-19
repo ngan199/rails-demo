@@ -1,2 +1,29 @@
-<h1>Transactions#new</h1>
-<p>Find me in app/views/transactions/new.html.erb</p>
+<%= form_for @transaction, url: {action: :create} do |form| %>
+  <table border='2'>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>File Upload</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= form.fields_for :expenses do |expense| %>
+        <%= TransactionsHelper::ExpenseNames.map do |name| %>
+          <tr>
+            <td><%= name %></td>
+            <td><%= expense.text_field :amount %> </td>
+            <td><%= expense.text_field :file_upload %> </td>
+            <td> <%= link_to 'Show', expenses_show_path(form) %> </td>
+            <td> <%= link_to 'Edit', expenses_edit_path(form) %> </td>
+            <td> <%= link_to 'Delete', expenses_destroy_path(form), method: :delete %> </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+  </table>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
