@@ -1,18 +1,11 @@
 Rails.application.routes.draw do
   get 'transactions/show'
   get 'transactions/new'
+  get 'transactions/index'
   post 'transactions/create'
   get 'transactions/edit'
   patch 'transactions/update'
   get 'transactions/destroy'
-
-  get 'expenses/show'
-  get 'expenses/new'
-  post 'expenses/create'
-  get 'expenses/edit'
-  patch 'expenses/update'
-  get 'expenses/destroy'
-  get 'expenses/index'
   
   devise_for :users
   get 'home/index'

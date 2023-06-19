@@ -43,7 +43,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
 
     create_table :transactions do |t|
       t.belongs_to :user
-      t.date :date_time
+      t.boolean :display
       t.float  :total
 
       t.timestamps

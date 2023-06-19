@@ -9,14 +9,11 @@
       </thead>
       <tbody>
       <%= form.fields_for :expenses do |expense| %>
-        <%= TransactionsHelper::ExpenseNames.map do |name| %>
+        <% TransactionsHelper::ExpenseNames.map do |name| %>
           <tr>
             <td><%= name %></td>
             <td><%= expense.text_field :amount %> </td>
             <td><%= expense.text_field :file_upload %> </td>
-            <td> <%= link_to 'Show', expenses_show_path(form) %> </td>
-            <td> <%= link_to 'Edit', expenses_edit_path(form) %> </td>
-            <td> <%= link_to 'Delete', expenses_destroy_path(form), method: :delete %> </td>
           </tr>
         <% end %>
       <% end %>
@@ -24,6 +21,7 @@
   </table>
 
   <div class="actions">
+    <%= link_to 'Back', {controller: 'transactions', action: 'index'} %>
     <%= form.submit %>
   </div>
 <% end %>

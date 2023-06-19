@@ -2,7 +2,7 @@ class CreateTransactions < ActiveRecord::Migration[7.0]
   def change
     create_table :transactions do |t|
       t.belongs_to :user, index: true, foreign_key: true
-      t.date :date_time
+      t.boolean :display
       t.float :total
 
       t.timestamps

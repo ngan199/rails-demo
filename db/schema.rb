@@ -21,20 +21,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_092441) do
   end
 
   create_table "expenses", force: :cascade do |t|
-    t.bigint "Transaction_id"
-    t.bigint "Catagory_id"
+    t.bigint "transaction_id"
+    t.bigint "catagory_id"
     t.string "name"
     t.string "amount"
     t.string "file_upload"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["Catagory_id"], name: "index_expenses_on_Catagory_id"
-    t.index ["Transaction_id"], name: "index_expenses_on_Transaction_id"
+    t.index ["catagory_id"], name: "index_expenses_on_Catagory_id"
+    t.index ["transaction_id"], name: "index_expenses_on_Transaction_id"
   end
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "date_time"
+    t.string "destroy"
     t.string "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

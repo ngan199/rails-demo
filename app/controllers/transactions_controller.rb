@@ -6,10 +6,6 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.all
   end 
 
-  def show
-    @transaction = Transaction.find(params[:format]) 
-  end
-
   def new
     @transaction = Transaction.new
     @transaction.expenses.build
@@ -42,13 +38,20 @@ class TransactionsController < ApplicationController
 
   def destroy
     @transaction = Transaction.find(params[:format])
-    if @transaction.delete 
+    if @transaction.update(display: false)
       flash[:notice] = 'Transaction deleted'
       redirect_to transactions_index_path
     else 
       flash[:notice] = 'Failed to delete expense'
       render :destroy 
     end
+    # if @transaction.delete 
+    #   flash[:notice] = 'Transaction deleted'
+    #   redirect_to transactions_index_path
+    # else 
+    #   flash[:notice] = 'Failed to delete expense'
+    #   render :destroy 
+    # end
   end
 
   private
