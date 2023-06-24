@@ -24,18 +24,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_092441) do
     t.bigint "transaction_id"
     t.bigint "catagory_id"
     t.string "name"
-    t.string "amount"
+    t.float "amount"
     t.string "file_upload"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["catagory_id"], name: "index_expenses_on_Catagory_id"
-    t.index ["transaction_id"], name: "index_expenses_on_Transaction_id"
+    t.index ["catagory_id"], name: "index_expenses_on_catagory_id"
+    t.index ["transaction_id"], name: "index_expenses_on_transaction_id"
   end
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "destroy"
-    t.string "total"
+    t.boolean "display"
+    t.float "total"
+    t.date "date_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_transactions_on_user_id"
@@ -53,5 +54,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_092441) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "transactions", "users"
 end

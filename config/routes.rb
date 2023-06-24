@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
-  get 'transactions/show'
-  get 'transactions/new'
-  get 'transactions/index'
-  post 'transactions/create'
-  get 'transactions/edit'
-  patch 'transactions/update'
-  get 'transactions/destroy'
+  # resources :users do 
+  #   resources :transactions
+  # end
+  
+  # get 'transactions/show'
+  # get 'transactions/new'
+  # get 'transactions/index'
+  # post 'transactions/create'
+  # get 'transactions/edit'
+  # patch 'transactions/update'
+  # get 'transactions/destroy'
+
+  resources :transactions
   
   devise_for :users
   get 'home/index'

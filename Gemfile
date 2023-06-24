@@ -73,3 +73,4 @@ end
 
 gem "devise", "~> 4.9"
 gem 'pg'
+gem 'simple_form'

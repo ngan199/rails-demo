@@ -45,6 +45,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.belongs_to :user
       t.boolean :display
       t.float  :total
+      t.date :date_time
 
       t.timestamps
     end

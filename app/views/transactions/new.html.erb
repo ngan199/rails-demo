@@ -1,4 +1,4 @@
-<%= form_for @transaction, url: {action: :create} do |form| %>
+<%= simple_form_for @transaction do |form| %>
   <table border='2'>
       <thead>
         <tr>
@@ -8,20 +8,18 @@
         </tr>
       </thead>
       <tbody>
-      <%= form.fields_for :expenses do |expense| %>
-        <% TransactionsHelper::ExpenseNames.map do |name| %>
-          <tr>
-            <td><%= name %></td>
-            <td><%= expense.text_field :amount %> </td>
-            <td><%= expense.text_field :file_upload %> </td>
-          </tr>
-        <% end %>
+      <%= form.simple_fields_for :expenses do |expense| %>
+        <tr>
+            <td><%= expense.input :name, label: false %></td>
+            <td><%= expense.input :amount, label: false %> </td>
+            <td><%= expense.input :file_upload, label: false %> </td>
+        </tr>
       <% end %>
       </tbody>
   </table>
 
   <div class="actions">
     <%= link_to 'Back', {controller: 'transactions', action: 'index'} %>
-    <%= form.submit %>
+    <%= form.button :submit %>
   </div>
 <% end %>

@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :transactions, dependent: :destroy
   accepts_nested_attributes_for :transactions
 
-  def reject_transactions(attributes)
-    attributes['id'].blank? 
-  end 
+  # def reject_transactions(attributes)
+  #   attributes['user_id'].blank? 
+  # end 
 end
