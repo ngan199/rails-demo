@@ -42,10 +42,21 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
     # add_index :users, :unlock_token,         unique: true
 
     create_table :transactions do |t|
+      t.belongs_to :user, index: true, foreign_key: true
+      t.boolean :display
+      t.float  :total
+      t.string :month
+      t.string :year
+
+      t.timestamps
+    end
+
+    create_table :incomes do |t|
       t.belongs_to :user
       t.boolean :display
       t.float  :total
-      t.date :date_time
+      t.string :year
+      t.string :month
 
       t.timestamps
     end

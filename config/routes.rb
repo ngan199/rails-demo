@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  # resources :users do 
-  #   resources :transactions
-  # end
   
   # get 'transactions/show'
   # get 'transactions/new'
@@ -12,6 +9,7 @@ Rails.application.routes.draw do
   # get 'transactions/destroy'
 
   resources :transactions
+  resources :incomes
   
   devise_for :users
   get 'home/index'

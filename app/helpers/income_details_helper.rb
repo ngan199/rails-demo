@@ -1,0 +1,2 @@
+module IncomeDetailsHelper
+end

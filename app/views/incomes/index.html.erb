@@ -1,0 +1,38 @@
+<div class="container">   
+    <h3>Budget</h3>   
+    <%# <td><%= @transaction[:user_id] %>
+    <td>Income: 1234</td>  
+    <%# <td>Budget: <%= @transaction.total %></td>    %>
+     
+      <div>   
+        <%= link_to 'Add Income', new_income_path %>   
+      </div>   
+      <br>   
+    <div>
+      <h1>Income Details</h1>
+      <table border="2">   
+        <thead>   
+          <tr>      
+            <th>Name</th>   
+            <th>Amount</th>   
+          </tr>   
+        </thead>   
+        <tbody>   
+          <% @income.each do |item| %>   
+            <% item.income_details.each do |detail| %>   
+              <tr>   
+                <td><%= detail.name %></td>   
+                <td><%= detail.amount %></td>    
+                  <div>   
+                  <td>     
+                    <%= link_to 'Edit', edit_income_path(item) %>   
+                    <%= link_to 'Delete', incomes_path(item), method: :delete %>   
+                  </div>   
+                </td>   
+              </tr> 
+            <% end %>   
+          <% end %>   
+        </tbody>   
+      </table>   
+    </div>
+</div>  
