@@ -45,8 +45,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.belongs_to :user, index: true, foreign_key: true
       t.boolean :display
       t.float  :total
-      t.string :month
-      t.string :year
+      t.number :month
+      t.number :year
 
       t.timestamps
     end
@@ -55,8 +55,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.belongs_to :user
       t.boolean :display
       t.float  :total
-      t.string :year
-      t.string :month
+      t.number :year
+      t.number :month
 
       t.timestamps
     end

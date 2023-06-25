@@ -44,10 +44,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_24_073909) do
   create_table "incomes", force: :cascade do |t|
     t.bigint "user_id"
     t.boolean "display"
-    t.date "date_time"
+    t.string "year", limit: 255
     t.string "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "month", limit: 255
     t.index ["user_id"], name: "index_incomes_on_user_id"
   end
 
@@ -55,9 +56,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_24_073909) do
     t.bigint "user_id"
     t.boolean "display"
     t.float "total"
-    t.date "date_time"
+    t.string "year", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "month", limit: 255
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
