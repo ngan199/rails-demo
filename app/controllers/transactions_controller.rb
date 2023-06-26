@@ -5,7 +5,6 @@ class TransactionsController < ApplicationController
 
   def index
     @transaction = current_user.transactions.order(created_at: :desc)
-    puts "transactiontransaction #{@transaction.inspect}"
   end
 
   def new
@@ -13,6 +12,10 @@ class TransactionsController < ApplicationController
     TransactionsHelper::ExpenseNames.map do |name|
       @transaction.expenses.build(name: name)
     end
+  end
+
+  def show
+    @transaction = current_user.transactions.order(created_at: :desc)
   end
 
   def edit; end
@@ -38,6 +41,7 @@ class TransactionsController < ApplicationController
   end
 
   def destroy
+    puts "destroyyyyy"
     if @transaction.update(display: false)
       flash[:notice] = 'Transaction deleted'
     else
@@ -50,6 +54,7 @@ class TransactionsController < ApplicationController
   private
 
   def set_transaction
+    puts "finddddd #{params}"
     @transaction = Transaction.find(params[:id])
   end
 
@@ -66,8 +71,8 @@ class TransactionsController < ApplicationController
       transaction_params.merge(
         user_id: current_user.id,
         display: true,
-        year: params[:transaction]['year(1i)'],
-        month: params[:transaction]['year(2i)'],
+        year: params[:date]['year'],
+        month: params[:date]['month'],
         total: total_amount(params[:transaction])
       )
     )

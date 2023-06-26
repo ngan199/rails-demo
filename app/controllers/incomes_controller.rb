@@ -56,9 +56,10 @@ class IncomesController < ApplicationController
   def prepare_create
     @income = Income.new(
       income_params.merge(
+        display: true,
         user_id: current_user.id,
-        year: params[:income]['year(1i)'],
-        month: params[:income]['year(2i)'],
+        year: params[:date]['year'],
+        month: params[:date]['month'],
         total: total_amount(params[:income])
       )
     )

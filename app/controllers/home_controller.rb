@@ -2,19 +2,13 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if params[:search].blank?
-      @transaction = current_user.transactions.order(created_at: :desc)
-      .find_by(year: Date.today.year, month: Date.today.month) || []
+    year = params[:search].blank? ? Date.today.year : params[:search]['year(1i)']
+    month = params[:search].blank? ? Date.today.month : params[:search]['year(2i)']
 
-      @income = current_user.incomes.order(created_at: :desc)
-      .find_by(year: Date.today.year, month: Date.today.month) || []
-
-    else  
-      @transaction = current_user.transactions.order(created_at: :desc)
-      .find_by(year: params[:search]['year(1i)'], month: params[:search]['year(1i)']) || []
-
-      @income = current_user.incomes.order(created_at: :desc)
-      .find_by(year: params[:search]['year(1i)'], month: params[:search]['year(1i)']) || []
-    end
+    @transaction = current_user.transactions.order(created_at: :desc)
+      .find_by(year: year, month: month)
+      puts "@transaction #{@transaction.inspect}"
+    @income = current_user.incomes.order(created_at: :desc)
+      .find_by(year: year, month: month)
   end
 end

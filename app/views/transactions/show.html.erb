@@ -1,4 +1,4 @@
-<div class='bg-gradient-to-r from-indigo-500 h-screen w-screen flex justify-start items-center flex-col'>
+ <div class='bg-gradient-to-r from-indigo-500 h-screen w-screen flex justify-start items-center flex-col'>
   <div class='px-5 flex flex-row justify-between items-center bg-white h-20 w-full p-4'>
     <div class='flex flex-row items-center'>
       <img class='w-10 h-10 mr-4' src='https://static.moneylover.me/img/icon/icon.png' alt='logo' />
@@ -6,7 +6,7 @@
     </div>
     <div class='flex flex-row items-center'>
       <% if user_signed_in? %> 
-      <%= link_to 'Add Income', new_income_path(current_user), class: 'rounded-lg bg-indigo-500 mr-10 text-white p-2' %>
+      <%= link_to 'Add Transaction', new_transaction_path(current_user), class: 'rounded-lg bg-indigo-500 mr-10 text-white p-2' %>
         <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
       <% else %>
         <%= button_to "Sign in", new_user_session_path %> 
@@ -18,7 +18,7 @@
     <div class="mt-10 w-full">   
       <%= link_to 'Back', {controller: 'home', action: 'index', input_html: {class: 'underline'}} %>
       <div class='flex flex-col justify-center items-center'>
-        <h1 class='text-3xl text-bold text-white mb-4'>Incomes</h1>
+        <h1 class='text-3xl text-bold text-white mb-4'>Transactions</h1>
         <table class='w-full bg-white rounded_lg'>   
           <thead>   
             <tr>      
@@ -28,14 +28,14 @@
             </tr>   
           </thead>   
           <tbody>    
-              <% @income.each do |ic| %>   
-                <tr class="border-2 <%= ic.display ? 'hidden' : 'table-row'%>" >   
-                  <td class='text-left p-2'><%= ic.total %></td>   
-                  <td class='text-left p-2'><%= ic.month %></td>    
-                  <td class='text-left p-2'><%= ic.year %></td> 
+              <% @transaction.each do |tr| %>   
+                <tr class="border-2 <%= @transaction.display ? 'hidden' : 'table-row'%>" >   
+                  <td class='text-left p-2'><%= tr.total %></td>   
+                  <td class='text-left p-2'><%= tr.month %></td>    
+                  <td class='text-left p-2'><%= tr.year %></td> 
                   <td>
-                    <%= link_to 'Edit', edit_income_path(ic), class: 'bg-blue-400 text-white p-2 rounded-lg' %>   
-                    <%= link_to 'Delete', income_path(ic), class: 'bg-red-400 text-white p-2 rounded-lg', data: { turbo_method: :delete  } %>  
+                    <%= link_to 'Edit', edit_transaction_path(tr), class: 'bg-blue-400 text-white p-2 rounded-lg' %>   
+                    <%= link_to 'Delete', transaction_path(tr), method: :delete, class: 'bg-red-400 text-white p-2 rounded-lg' %>  
                   </td>     
                 </tr> 
               <% end %>    

@@ -6,8 +6,6 @@
       </div>
       <div class='flex flex-row items-center'>
         <% if user_signed_in? %> 
-        <%= link_to 'Add Transaction', new_transaction_path(current_user), class: 'rounded-lg bg-indigo-500 mr-10 text-white p-2' %>
-        <%= link_to 'Add Income', new_income_path(current_user), class: 'rounded-lg bg-indigo-500 mr-10 text-white p-2' %>
           <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
         <% else %>
           <%= button_to "Sign in", new_user_session_path %> 
@@ -19,7 +17,8 @@
         <div class='flex flex-row items-center w-full justify-start'>
           <%= link_to 'Back', {controller: 'incomes', action: 'index', input_html: {class: 'underline'}} %>
           <div class='flex flex-row items-center w-2/3 justify-center'>
-          <%= form.date_select :year, { discard_day: true}, class: 'mr-4 rounded-lg border-white' %>
+          <div class='mr-4 rounded-lg border-white'><%= select_year Date.today.year %></div>     
+          <div class='mr-4 rounded-lg border-white'><%= select_month Date.today.month %></div>
           </div>
         </div>
         

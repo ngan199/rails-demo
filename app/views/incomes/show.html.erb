@@ -28,14 +28,14 @@
             </tr>   
           </thead>   
           <tbody>    
-              <% @income.each do |ic| %>   
-                <tr class="border-2 <%= ic.display ? 'hidden' : 'table-row'%>" >   
-                  <td class='text-left p-2'><%= ic.total %></td>   
-                  <td class='text-left p-2'><%= ic.month %></td>    
-                  <td class='text-left p-2'><%= ic.year %></td> 
+              <% @income.each do |tr| %>   
+                <tr class="border-2 <%= @income.display ? 'hidden' : 'table-row'%>" >   
+                  <td class='text-left p-2'><%= tr.total %></td>   
+                  <td class='text-left p-2'><%= tr.month %></td>    
+                  <td class='text-left p-2'><%= tr.year %></td> 
                   <td>
-                    <%= link_to 'Edit', edit_income_path(ic), class: 'bg-blue-400 text-white p-2 rounded-lg' %>   
-                    <%= link_to 'Delete', income_path(ic), class: 'bg-red-400 text-white p-2 rounded-lg', data: { turbo_method: :delete  } %>  
+                    <%= link_to 'Edit', edit_income_path(tr), class: 'bg-blue-400 text-white p-2 rounded-lg' %>   
+                    <%= link_to 'Delete', income_path(tr), class: 'bg-red-400 text-white p-2 rounded-lg', data: { turbo_method: :delete  } %>  
                   </td>     
                 </tr> 
               <% end %>    

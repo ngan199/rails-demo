@@ -29,13 +29,13 @@
           </thead>   
           <tbody>    
               <% @transaction.each do |tr| %>   
-                <tr class="border-2 <%= @transaction.display ? 'hidden' : 'table-row'%>" >   
+                <tr class="border-2 <%= tr.display ?  'table-row' : 'hidden' %>" >   
                   <td class='text-left p-2'><%= tr.total %></td>   
                   <td class='text-left p-2'><%= tr.month %></td>    
                   <td class='text-left p-2'><%= tr.year %></td> 
                   <td>
                     <%= link_to 'Edit', edit_transaction_path(tr), class: 'bg-blue-400 text-white p-2 rounded-lg' %>   
-                    <%= link_to 'Delete', transaction_path(tr), class: 'bg-red-400 text-white p-2 rounded-lg', method: :delete %>  
+                    <%= link_to 'Delete', transaction_path(tr), data: { turbo_method: :delete  }, class: 'bg-red-400 text-white p-2 rounded-lg' %>  
                   </td>     
                 </tr> 
               <% end %>    
