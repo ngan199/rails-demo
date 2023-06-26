@@ -5,7 +5,7 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version: 3.1.2p20
 
 * System dependencies
 
@@ -13,7 +13,7 @@ Things you may want to cover:
 
 * Database creation
 
-* Database initialization
+* Database initialization: rails db:create
 
 * How to run the test suite
 
@@ -22,3 +22,17 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+# Installation
+- Install Ruby:
+    + Install Homebrew: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    + Install Ruby: brew install ruby-build
+    + Install rbenv: brew install rbenv
+    + Run: rbenv init -> brew upgrade ruby-build -> rbenv install 3.1.2 --verbose -> rbenv global 3.1.2
+- Install package: yarn
+- Install rails: gem install rails
+- Run app: rails s
+
+# Waht We Have 
+- rails
+- Tailwind css
+
