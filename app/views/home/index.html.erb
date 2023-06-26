@@ -1,4 +1,4 @@
-<div class='bg-gradient-to-r from-indigo-500 h-screen w-screen flex justify-start items-center flex-col'>
+<div class='bg-gradient-to-r from-indigo-500 h-full w-screen flex justify-start items-center flex-col'>
   <div class='px-5 flex flex-row justify-between items-center bg-white h-20 w-full p-4'>
     <div class='flex flex-row items-center'>
       <img class='w-10 h-10 mr-4' src='https://static.moneylover.me/img/icon/icon.png' alt='logo' />
@@ -24,10 +24,10 @@
         </div>
       </div>
     <% end %>
-
     <div class="mt-10 w-full">   
         <h3 class='w-full flex flex-row justify-between mb-5'>Income <span class='text-green-500'>+<%= @income.total %></span></h3>   
         <h3 class='w-full flex flex-row justify-between mb-5'>Transaction <span class='text-red-500'>-<%= @transaction.total %></span></h3>   
+        <h3 class='w-full flex flex-row justify-between mb-5'>Balance <span class='text-blue-500'><%= @income.total.to_f - @transaction.total.to_f %></span></h3>   
         <div class='flex flex-col justify-center items-center'>
           <h1 class='text-3xl text-bold text-white mb-4'>Expenses</h1>
           <table class='w-full bg-white rounded_lg'>   
@@ -39,7 +39,7 @@
             </thead>   
             <tbody>    
                 <% @transaction.expenses.each do |expense| %>   
-                  <tr class="border-2 <%= @transaction.display ? 'table-row' : 'hidden'%>" >   
+                  <tr class="border-2" >   
                     <td class='text-left p-2'><%= expense.name %></td>   
                     <td class='text-left p-2'><%= expense.amount %></td>    
                   </tr> 
