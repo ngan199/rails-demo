@@ -54,12 +54,13 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(
-      :total, 'year(1i)', 'year(2i)', 'year(3i)',
+      :total, 
       expenses_attributes: %i[name amount file_upload]
     )
   end
 
   def prepare_create
+    puts "parasssmdn #{params}"
     @transaction = Transaction.new(
       transaction_params.merge(
         user_id: current_user.id,

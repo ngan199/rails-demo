@@ -3,8 +3,8 @@ class CreateTransactions < ActiveRecord::Migration[7.0]
     create_table :transactions do |t|
       t.belongs_to :user, index: true, foreign_key: true
       t.boolean :display
-      t.number :year
-      t.number :month
+      t.string :year
+      t.string :month
       t.float :total
 
       t.timestamps
