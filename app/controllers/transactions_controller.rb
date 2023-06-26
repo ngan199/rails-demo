@@ -5,6 +5,7 @@ class TransactionsController < ApplicationController
 
   def index
     @transaction = current_user.transactions.order(created_at: :desc)
+    puts "transactiontransaction #{@transaction.inspect}"
   end
 
   def new
@@ -64,6 +65,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(
       transaction_params.merge(
         user_id: current_user.id,
+        display: true,
         year: params[:transaction]['year(1i)'],
         month: params[:transaction]['year(2i)'],
         total: total_amount(params[:transaction])
