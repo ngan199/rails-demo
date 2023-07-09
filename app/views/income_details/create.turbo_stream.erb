@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend "income_details" do %>
+  <%= render "income_detail", income_detail: @income_detail %>
+<% end %>
+<%= turbo_stream.replace "#{dom_id(IncomeDetail.new)}_form" do %>
+  <%= render "form", income_detail: IncomeDetail.new %>
+<% end %>

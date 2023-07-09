@@ -4,11 +4,11 @@ class IncomeDetailsController < ApplicationController
   before_action :set_income_detail, only: [:show, :edit, :update, :destroy]
 
   def index 
-    @income_detail = Income_detail.where(income_id: params[:income_id], deleted: false)
+    @income_detail = IncomeDetail.where(income_id: params[:income_id], deleted: false)
   end 
 
   def show
-    @income_detail = Income_detail.where(income_id: params[:income_id], deleted: false)
+    @income_detail = IncomeDetail.where(income_id: params[:income_id], deleted: false)
   end
 
   def new
@@ -18,11 +18,11 @@ class IncomeDetailsController < ApplicationController
   def create
     respond_to do |format| 
       if @income_detail.save 
-        income = Expense.where(income_id: @expense.income_id)
+        income = IncomeDetail.where(income_id: @income_detail.income_id)
         @income.update(total: total_amount(income))
 
         format.turbo_stream 
-        format.html {redirect_to income_income_details_path(@income), notice: "Expense was successfully created"}
+        format.html {redirect_to income_income_details_path(@income), notice: "Income was successfully created"}
       else  
         format.html { render :new, status: :unprocessable_entity}
       end
@@ -51,14 +51,14 @@ class IncomeDetailsController < ApplicationController
   end
 
   def prepare_create
-    @income_detail = Income_detail.new(income_detail_params.merge(
+    @income_detail = IncomeDetail.new(income_detail_params.merge(
       income_id: params[:income_id],
       deleted: false
     ))
   end
 
   def set_income_detail 
-    @income_detail = Income_detail.find(params[:id])
+    @income_detail = IncomeDetail.find(params[:id])
   end
 
   def total_amount(transaction)

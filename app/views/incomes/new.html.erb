@@ -21,24 +21,6 @@
           <div class='mr-4 rounded-lg border-white'><%= select_month Date.today.month %></div>
           </div>
         </div>
-        
-        <table class='w-full bg-white rounded_lg mt-10'>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-          <%= form.simple_fields_for :income_details do |detail| %>     
-            <tr>
-                <td><%= detail.input :name, label: false %></td>
-                <td><%= detail.input :amount, label: false %> </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-
         <div class="actions">
           <%= form.button :submit, "Create", class: 'text-white bg-indigo-500 p-1 rounded-lg p-2 mt-5' %>
         </div>

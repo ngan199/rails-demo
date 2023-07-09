@@ -1,0 +1,20 @@
+<%= form_with(model: [@income, income_detail], id: "#{dom_id(income_detail)}_form") do |form| %>
+  <% if income_detail.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(income_detail.errors.count, "error") %> prohibited this income detail from being saved:</h2>
+
+      <ul>
+        <% income_detail.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="flex items-stretch flex-grow">
+    <%= form.label :name, class: "sr-only" %>
+    <%= form.text_field :name, class: "block w-full rounded-none rounded-l-md sm:text-sm border-gray-300", placeholder: "Income name..." %>
+    <%= form.label :amount, class: "sr-only" %>
+    <%= form.text_field :amount, class: "block w-full rounded-none rounded-l-md sm:text-sm border-gray-300", placeholder: "Amount..." %>
+    <%= form.submit class: "-ml-px relative px-4 py-2 border border-blue-600 text-sm font-medium rounded-r-md text-white bg-blue-600 hover:bg-blue-700" %>
+  </div>
+<% end %>

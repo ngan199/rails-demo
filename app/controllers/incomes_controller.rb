@@ -7,11 +7,11 @@ class IncomesController < ApplicationController
   end
 
   def new
-    @transaction = Income.new
+    @income = Income.new
   end
 
   def show
-    @transaction = current_user.incomes.where(deleted: false).order(created_at: :desc)
+    @income = current_user.incomes.where(deleted: false).order(created_at: :desc)
   end
 
   def edit; end
@@ -42,13 +42,13 @@ class IncomesController < ApplicationController
 
   def destroy
     if @income.update(deleted: true) 
-      income_detail = @income.income_details
-      expenses.each do |e|
+      income_details = @income.income_details
+      income_details.each do |e|
         e.update(deleted: true)
       end
       flash[:notice] = 'Income deleted'
     else  
-      flash[:alert] = @transaction.errors
+      flash[:alert] = @income.errors
     end
 
     respond_to do |format|
@@ -67,9 +67,9 @@ class IncomesController < ApplicationController
   end
 
   def total_amount(income)
-    return 0 if income[:expenses_attributes].blank?
+    return 0 if income[:income_details_attributes].blank?
 
-    values_array = income[:expenses_attributes].values.flatten
+    values_array = income[:income_details_attributes].values.flatten
     numbers_array = values_array.pluck(:amount).map(&:to_f)
     numbers_array.compact.sum
   end
