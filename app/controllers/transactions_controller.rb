@@ -1,17 +1,13 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_transaction, only: %i[edit show destroy update]
-  before_action :prepare_create, only: :create
 
   def index
-    @transaction = current_user.transactions.order(created_at: :desc)
+    @transaction = current_user.transactions.where(deleted: false).order(created_at: :desc)
   end
 
   def new
     @transaction = Transaction.new
-    TransactionsHelper::ExpenseNames.map do |name|
-      @transaction.expenses.build(name: name)
-    end
   end
 
   def show
@@ -21,11 +17,23 @@ class TransactionsController < ApplicationController
   def edit; end
 
   def create
-    if @transaction.save
-      flash[:notice] = 'Transaction was successfully created'
-      redirect_to transactions_path
-    else
-      flash[:notice] = @transaction.errors.full_messages.to_sentence
+    begin
+      message = 'Transaction existed'
+
+      transaction = Transaction.find_or_create_by(
+        user_id: current_user.id,
+        deleted: false,
+        year: params[:date]['year'],
+        month: params[:date]['month']
+      ) do |tr| 
+        message = 'Transaction was successfully created'
+      end
+  
+      flash[:notice] = message 
+
+      redirect_to transaction_expenses_path(transaction)
+    rescue Exception => e
+      flash[:notice] = e.message
       render :new
     end
   end
@@ -41,41 +49,31 @@ class TransactionsController < ApplicationController
   end
 
   def destroy
-    puts "destroyyyyy"
-    if @transaction.update(display: false)
+    if @transaction.update(deleted: true) 
+      expenses = @transaction.expenses
+      puts "expense hahaaa #{expenses.inspect()}"
+      expenses.each do |e|
+        e.update(deleted: true)
+      end
       flash[:notice] = 'Transaction deleted'
-    else
+    else  
       flash[:alert] = @transaction.errors
     end
 
-    redirect_to transactions_path
+    puts "@transaction@transaction #{@transaction.inspect()}"
+    respond_to do |format|
+      format.html { redirect_to transactions_path, notice: "Deleted transaction" }
+    end
   end
 
   private
 
   def set_transaction
-    puts "finddddd #{params}"
     @transaction = Transaction.find(params[:id])
   end
 
   def transaction_params
-    params.require(:transaction).permit(
-      :total, 
-      expenses_attributes: %i[name amount file_upload]
-    )
-  end
-
-  def prepare_create
-    puts "parasssmdn #{params}"
-    @transaction = Transaction.new(
-      transaction_params.merge(
-        user_id: current_user.id,
-        display: true,
-        year: params[:date]['year'],
-        month: params[:date]['month'],
-        total: total_amount(params[:transaction])
-      )
-    )
+    params.require(:date).permit(true)
   end
 
   def total_amount(transaction)

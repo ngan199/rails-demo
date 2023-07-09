@@ -29,7 +29,7 @@
           </thead>   
           <tbody>    
               <% @transaction.each do |tr| %>   
-                <tr class="border-2 <%= tr.display ?  'table-row' : 'hidden' %>" >   
+                <tr class="border-2" >   
                   <td class='text-left p-2'><%= tr.total %></td>   
                   <td class='text-left p-2'><%= tr.month %></td>    
                   <td class='text-left p-2'><%= tr.year %></td> 
