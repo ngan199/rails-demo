@@ -4,7 +4,7 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
   
   def index 
-    @expenses = Expense.where(transaction_id: params[:transaction_id], deleted: false)
+    @expense = Expense.where(transaction_id: params[:transaction_id], deleted: false)
   end 
 
   def show
@@ -18,6 +18,9 @@ class ExpensesController < ApplicationController
   def create
     respond_to do |format|
       if @expense.save
+        transaction = Expense.where(transaction_id: @expense.transaction_id)
+        @transaction.update(total: total_amount(transaction))
+        
         format.turbo_stream 
         format.html {redirct_to transaction_expenses_path(@transaction), notice: "Expense was successfully created"}
       else  
@@ -66,5 +69,12 @@ class ExpensesController < ApplicationController
 
   def set_expense 
     @expense = Expense.find(params[:id])
+  end
+
+  def total_amount(transaction)
+    return 0 if transaction.blank?
+
+    numbers_array = transaction.pluck(:amount).map(&:to_f)
+    numbers_array.compact.sum
   end
 end

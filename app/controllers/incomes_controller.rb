@@ -1,74 +1,75 @@
 class IncomesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_income, only: %i[edit show destroy update]
-  before_action :prepare_create, only: :create
 
-  def index 
-    @income = current_user.incomes.order(created_at: :desc)
+  def index
+    @income = current_user.incomes.where(deleted: false).order(created_at: :desc)
   end
 
   def new
-    @income = Income.new 
-    IncomesHelper::IncomeNames.map do |name| 
-      @income.income_details.build(name: name)
-    end
+    @transaction = Income.new
   end
 
+  def show
+    @transaction = current_user.incomes.where(deleted: false).order(created_at: :desc)
+  end
+
+  def edit; end
+
   def create
-    if @income.save 
-      flash[:notice] = 'Income was successfully created'
-      redirect_to incomes_path
-    else 
-      flash[:notice] = @income.errors.full_messages.to_sentence
+    begin
+      message = 'Income existed'
+
+      income = Income.find_or_create_by(
+        user_id: current_user.id,
+        deleted: false,
+        year: params[:date]['year'],
+        month: params[:date]['month']
+      ) do |tr| 
+        message = 'Income was successfully created'
+      end
+  
+      flash[:notice] = message 
+
+      redirect_to income_income_details_path(income)
+    rescue Exception => e
+      flash[:notice] = e.message
       render :new
     end
   end
 
-  def update
-    if @income.update(income_params)
-      flash[:notice] = 'Income updated'
-      redirect_to incomes_path
-    else  
-      flash[:alert] = 'Failed to edit income'
-      render :edit 
-    end
-  end
+  def update; end
 
   def destroy
-    if @income.update(display: false)
+    if @income.update(deleted: true) 
+      income_detail = @income.income_details
+      expenses.each do |e|
+        e.update(deleted: true)
+      end
       flash[:notice] = 'Income deleted'
     else  
-      flash[:alert] = @income.errors
+      flash[:alert] = @transaction.errors
     end
 
-    redirect_to transactions_path
+    respond_to do |format|
+      format.html { redirect_to incomes_path, notice: "Deleted income" }
+    end
   end
 
-  private 
-  def set_income 
+  private
+
+  def set_income
     @income = Income.find(params[:id])
   end
 
-  def income_params 
-    params.required(:income).permit(:total, income_details_attributes: %i[name amount])
-  end
-
-  def prepare_create
-    @income = Income.new(
-      income_params.merge(
-        display: true,
-        user_id: current_user.id,
-        year: params[:date]['year'],
-        month: params[:date]['month'],
-        total: total_amount(params[:income])
-      )
-    )
+  def income_params
+    params.require(:date).permit(true)
   end
 
   def total_amount(income)
-    return 0 if income[:income_details_attributes].blank?
+    return 0 if income[:expenses_attributes].blank?
 
-    values_array = income[:income_details_attributes].values.flatten
+    values_array = income[:expenses_attributes].values.flatten
     numbers_array = values_array.pluck(:amount).map(&:to_f)
     numbers_array.compact.sum
   end

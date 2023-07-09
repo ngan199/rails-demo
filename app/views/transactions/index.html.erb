@@ -34,7 +34,7 @@
                   <td class='text-left p-2'><%= tr.month %></td>    
                   <td class='text-left p-2'><%= tr.year %></td> 
                   <td>
-                    <%= link_to 'Edit', edit_transaction_path(tr), class: 'bg-blue-400 text-white p-2 rounded-lg' %>   
+                    <%= link_to 'View', transaction_expenses_path(tr), class: 'bg-blue-400 text-white p-2 rounded-lg' %>   
                     <%= link_to 'Delete', transaction_path(tr), data: { turbo_method: :delete  }, class: 'bg-red-400 text-white p-2 rounded-lg' %>  
                   </td>     
                 </tr> 

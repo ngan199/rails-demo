@@ -11,7 +11,7 @@ class TransactionsController < ApplicationController
   end
 
   def show
-    @transaction = current_user.transactions.order(created_at: :desc)
+    @transaction = current_user.transactions.where(deleted: false).order(created_at: :desc)
   end
 
   def edit; end
@@ -38,20 +38,11 @@ class TransactionsController < ApplicationController
     end
   end
 
-  def update
-    if @transaction.update(transaction_params)
-      flash[:notice] = 'Transaction updated'
-      redirect_to transactions_path
-    else
-      flash[:alert] = 'Failed to edit transaction'
-      render :edit
-    end
-  end
+  def update; end
 
   def destroy
     if @transaction.update(deleted: true) 
       expenses = @transaction.expenses
-      puts "expense hahaaa #{expenses.inspect()}"
       expenses.each do |e|
         e.update(deleted: true)
       end

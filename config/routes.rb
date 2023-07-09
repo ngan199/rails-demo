@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :transactions do 
     resources :expenses
   end
-  resources :incomes
+  
+  resources :incomes do 
+    resources :income_details
+  end
   
   devise_for :users
   get 'home/index'
