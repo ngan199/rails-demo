@@ -10,11 +10,21 @@
       </ul>
     </div>
   <% end %>
-  <div class="flex items-stretch flex-grow">
-    <%= form.label :name, class: "sr-only" %>
-    <%= form.text_field :name, class: "block w-full rounded-none rounded-l-md sm:text-sm border-gray-300", placeholder: "Expense name..." %>
-    <%= form.label :amount, class: "sr-only" %>
-    <%= form.text_field :amount, class: "block w-full rounded-none rounded-l-md sm:text-sm border-gray-300", placeholder: "Amount..." %>
-    <%= form.submit class: "-ml-px relative px-4 py-2 border border-blue-600 text-sm font-medium rounded-r-md text-white bg-blue-600 hover:bg-blue-700" %>
+
+  <div class='flex flex-col h-1/4 w-full mb-6'>
+    <h1 class='text-3xl mb-4 font-serif'>Your Expenses</h1>  
+    <div class='flex flex-row items-center w-full rounded-lg shadow-md p-5'>
+      <div class='flex flex-col justify-center w-1/6 items-center mr-4'>
+        <%= form.label :name, class: "sr-only" %>
+        <%= form.text_field :name, class: "rounded-lg border-indigo-500 text-indigo-500 w-full", placeholder: "Expense name..." %>
+      </div>
+      <div class='flex flex-col justify-center w-1/6 items-center mr-4'>
+        <%= form.label :amount, class: "sr-only" %>
+        <%= form.text_field :amount, class: "rounded-lg border-indigo-500 text-indigo-500 w-full", placeholder: "Amount..." %>
+      </div>
+      <div class='flex flex-col justify-center w-1/6 items-center'>
+        <%= form.submit class: "bg-indigo-500 rounded-lg p-2 text-white h-fit" %>
+      </div>
+    </div>  
   </div>
 <% end %>

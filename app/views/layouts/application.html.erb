@@ -15,6 +15,13 @@
   <body>
     <p class="notice"><%= notice %></p> 
     <p class="alert"><%= alert %></p> 
-    <%= yield %>
+    <div class='bg-gradient-to-r from-indigo-300 py-9 via-purple-100 to-pink-200 h-screen w-full flex justify-start items-center flex-col'>
+      <div class='w-11/12 shadow-md h-full backdrop-filter backdrop-blur-md bg-white/40 flex flex-row'>
+        <% if user_signed_in? %>
+          <%= render "layouts/sidebar" %>
+        <% end %>
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

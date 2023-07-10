@@ -24,7 +24,7 @@ class ExpensesController < ApplicationController
         format.turbo_stream 
         format.html {redirct_to transaction_expenses_path(@transaction), notice: "Expense was successfully created"}
       else  
-        format.html { render :new, status: :unprocessable_entity}
+        format.html { render :index, status: :unprocessable_entity}
       end
     end
   end

@@ -3,7 +3,10 @@ class IncomesController < ApplicationController
   before_action :set_income, only: %i[edit show destroy update]
 
   def index
-    @income = current_user.incomes.where(deleted: false).order(created_at: :desc)
+    year = params[:date].blank? ? Date.today.year : params[:date]['year']
+    month = params[:date].blank? ? Date.today.month : params[:date]['month']
+
+    @incomes = current_user.incomes.where(year: year, month: month, deleted: false).order(created_at: :desc)
   end
 
   def new
@@ -11,7 +14,7 @@ class IncomesController < ApplicationController
   end
 
   def show
-    @income = current_user.incomes.where(deleted: false).order(created_at: :desc)
+    @income = current_user.incomes.where(year: year, month: month, deleted: false).order(created_at: :desc)
   end
 
   def edit; end
@@ -64,13 +67,5 @@ class IncomesController < ApplicationController
 
   def income_params
     params.require(:date).permit(true)
-  end
-
-  def total_amount(income)
-    return 0 if income[:income_details_attributes].blank?
-
-    values_array = income[:income_details_attributes].values.flatten
-    numbers_array = values_array.pluck(:amount).map(&:to_f)
-    numbers_array.compact.sum
   end
 end
